@@ -1,0 +1,45 @@
+Requisitos:
+Elaborar um projeto em Java para realizar um cadastro (tema livre) utilizando uma classe Java, devendo obrigatóriamente conter:
+
+TEMA:
+Cadastro de funcionário
+
+
+-ENUM (mínimo 1);
+genero do funcionário e tableHeader
+
+
+-Atributos estáticos (mínimo 2);
+*quantidade de funcionários
+*salário minimo
+*nome da empresa 
+
+
+-Diversidade de campos no cadastro (não utilizar apenas String);
+*usado varchar
+*usado enum
+
+
+-Menu;
+*Feito
+
+
+-Utilizar LinkedList para armazenar os dados;
+*em processo
+
+
+-Formulário para realizar o cadastro com opções de:
+
+
+*Incluir dados
+-Em processo
+
+
+*Listar todos os cadastros
+-em processo
+
+
+*Pesquisar um cadastro
+
+
+*Filtrar cadastros
