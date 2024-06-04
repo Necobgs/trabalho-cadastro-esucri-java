@@ -19,10 +19,10 @@ import javax.swing.JOptionPane;
 public class Cad_funcionario extends javax.swing.JDialog {
 
     public static Double salarioMinimo = (double)1500;
-    private Home home;
-    private static String placeHolderSalario = "Acima de R$" + String.valueOf(salarioMinimo) + "(Salário mínimo)";
-    private static String placeHolderCPF = "(11 digitos numéricos)";
-    private static String placeHolderNome = "Nome do funcionário";
+    private final Home home;
+    private static final String placeHolderSalario = "Acima de R$" + String.valueOf(salarioMinimo) + "(Salário mínimo)";
+    private static final String placeHolderCPF = "(11 digitos numéricos)";
+    private static final String placeHolderNome = "Nome do funcionário";
     
     
     
@@ -63,7 +63,7 @@ public class Cad_funcionario extends javax.swing.JDialog {
         this.HabilitarPlaceHolderNome();
         this.HabilitarPlaceHolderCPF();
         this.HabilitarPlaceHolderSalario();
-        this.btn_cadastrar.setEnabled(false);
+        this.HabilitarCadastrar();
         
         JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 

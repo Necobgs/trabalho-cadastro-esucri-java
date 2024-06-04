@@ -197,7 +197,6 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void ckbox_generoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ckbox_generoMouseReleased
-        System.out.println(this.ckbox_genero.isSelected());
         if(this.ckbox_genero.isSelected()){
             this.cb_genero_procurar.setEnabled(true);
         }else{
@@ -213,11 +212,8 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
       DefaultTableModel model_funcionarios = (DefaultTableModel) this.table_funcionarios.getModel();
       
       
-        System.out.println("Quantidade:"+ String.valueOf(this.table_funcionarios.getRowCount()));
       int qtd_linhas = this.table_funcionarios.getRowCount();
       for(int ind = 0; ind < qtd_linhas && qtd_linhas > 0; ind++){
-          System.out.println("indice: "+String.valueOf(ind));
-          System.out.println("Linha 0 removida");
           model_funcionarios.removeRow(0);
       }
       
@@ -263,7 +259,6 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
           continue;
           }
           
-          System.out.println(funcionarios.get(ind).getNome());
           
           model_funcionarios.addRow(funcionarios.get(ind).retornarAtributos());
           

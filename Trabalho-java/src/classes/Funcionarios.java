@@ -16,7 +16,7 @@ public class Funcionarios {
     private Double salario;
     private Double inss;
     private Generos genero;
-    private static Double taxaINSS = 0.11;
+    private static final Double taxaINSS = 0.11;
     
     public Funcionarios(String nome,
                         String cpf,
