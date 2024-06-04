@@ -23,6 +23,16 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
         initComponents();
     }
 
+    public static boolean isDouble(String str) {
+    try {
+        Double.parseDouble(str);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -229,6 +239,32 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
              !funcionarios.get(ind).getGenero().equals(Generos.valueOf(this.cb_genero_procurar.getSelectedItem().toString()))){
           continue;
           }
+          
+
+          if(!this.txt_salario_procurar.getText().trim().isEmpty() &&
+             isDouble(this.txt_salario_procurar.getText().trim()) &&
+             this.rbtn_maior.isSelected() &&
+             funcionarios.get(ind).getSalario() <= Double.valueOf(this.txt_salario_procurar.getText().trim())){
+          continue;
+          }
+          
+          if(!this.txt_salario_procurar.getText().trim().isEmpty() &&
+             isDouble(this.txt_salario_procurar.getText().trim()) &&
+             this.rbtn_igual.isSelected() &&
+             (funcionarios.get(ind).getSalario() < Double.valueOf(this.txt_salario_procurar.getText().trim()) ||
+              funcionarios.get(ind).getSalario() > Double.valueOf(this.txt_salario_procurar.getText().trim())
+              )
+            ){
+          continue;
+          }
+          
+          if(!this.txt_salario_procurar.getText().trim().isEmpty() &&
+             isDouble(this.txt_salario_procurar.getText().trim()) &&
+             this.rbtn_menor.isSelected() &&
+             funcionarios.get(ind).getSalario() > Double.valueOf(this.txt_salario_procurar.getText().trim())){
+          continue;
+          }
+          
           
           model_funcionarios.addRow(funcionarios.get(ind).retornarAtributos());
           
