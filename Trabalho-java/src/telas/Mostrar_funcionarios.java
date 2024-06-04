@@ -5,6 +5,7 @@
 package telas;
 
 import classes.Funcionarios;
+import static classes.isNumbers.isDouble;
 import enums.Generos;
 import enums.atributos_funcionarios;
 import java.util.LinkedList;
@@ -23,14 +24,7 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
         initComponents();
     }
 
-    public static boolean isDouble(String str) {
-    try {
-        Double.parseDouble(str);
-        return true;
-    } catch (NumberFormatException e) {
-        return false;
-    }
-}
+
 
     
     /**
@@ -60,6 +54,7 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
         rbtn_menor = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModalityType(java.awt.Dialog.ModalityType.DOCUMENT_MODAL);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -217,11 +212,14 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
         
       DefaultTableModel model_funcionarios = (DefaultTableModel) this.table_funcionarios.getModel();
       
-      for(int ind = 0; ind <= this.table_funcionarios.getRowCount() && this.table_funcionarios.getRowCount() > 0; ind++){
-        model_funcionarios.removeRow(0);
+      
+        System.out.println("Quantidade:"+ String.valueOf(this.table_funcionarios.getRowCount()));
+      int qtd_linhas = this.table_funcionarios.getRowCount();
+      for(int ind = 0; ind < qtd_linhas && qtd_linhas > 0; ind++){
+          System.out.println("indice: "+String.valueOf(ind));
+          System.out.println("Linha 0 removida");
+          model_funcionarios.removeRow(0);
       }
-      
-      
       
       for(int ind = 0; ind < this.home.getListaFuncionarios().size(); ind++){
           
@@ -265,15 +263,13 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
           continue;
           }
           
+          System.out.println(funcionarios.get(ind).getNome());
           
           model_funcionarios.addRow(funcionarios.get(ind).retornarAtributos());
           
           
       }
       
-      
-
-        
     }//GEN-LAST:event_btn_procurarActionPerformed
 
     /**

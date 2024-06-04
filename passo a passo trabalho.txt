@@ -13,11 +13,13 @@ genero do funcionário e tableHeader
 *quantidade de funcionários
 *salário minimo
 *nome da empresa 
+*porcentagem inss
 
 
 -Diversidade de campos no cadastro (não utilizar apenas String);
-*usado varchar
+*usado String
 *usado enum
+*usado Double
 
 
 -Menu;
@@ -25,21 +27,22 @@ genero do funcionário e tableHeader
 
 
 -Utilizar LinkedList para armazenar os dados;
-*em processo
+*Feito
 
 
 -Formulário para realizar o cadastro com opções de:
 
 
 *Incluir dados
--Em processo
+-Feito
 
 
 *Listar todos os cadastros
--em processo
+-Feito
 
 
 *Pesquisar um cadastro
+-Feito
 
 
 *Filtrar cadastros

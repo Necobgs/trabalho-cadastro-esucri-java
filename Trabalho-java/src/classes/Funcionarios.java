@@ -50,7 +50,7 @@ public class Funcionarios {
     }
     
     public Object[] retornarAtributos() {
-        return new Object[]{this.nome, this.cpf, this.salario, this.inss,this.genero};
+        return new Object[]{this.nome, this.cpf, this.salario, this.genero,this.inss};
     }
     
     

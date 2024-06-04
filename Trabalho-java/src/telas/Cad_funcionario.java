@@ -5,10 +5,13 @@
 package telas;
 
 import classes.Funcionarios;
+import static classes.isNumbers.isDouble;
+import static classes.isNumbers.isLong;
 import enums.Generos;
+import java.awt.Color;
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
-import telas.Home;
+
 /**
  *
  * @author User
@@ -17,23 +20,27 @@ public class Cad_funcionario extends javax.swing.JDialog {
 
     public static Double salarioMinimo = (double)1500;
     private Home home;
+    private static String placeHolderSalario = "Acima de R$" + String.valueOf(salarioMinimo) + "(Salário mínimo)";
+    private static String placeHolderCPF = "(11 digitos numéricos)";
+    private static String placeHolderNome = "Nome do funcionário";
+    
+    
     
     private void HabilitarCadastrar(){
         
-        if(!this.txt_nome_funcionario.getText().trim().isEmpty() &&
-            this.txt_cpf_funcionario.getText().trim().length() == 11 &&
-            !this.txt_salario_funcionario.getText().trim().isEmpty()){
+        if(!this.txt_nome_funcionario.getText().trim().isEmpty()         &&
+           !this.txt_salario_funcionario.getText().trim().isEmpty()      &&
+           !this.txt_cpf_funcionario.getText().trim().isEmpty()          &&
+           isLong(this.txt_cpf_funcionario.getText().trim())             &&
+           isDouble(this.txt_salario_funcionario.getText().trim())       &&
+           this.txt_cpf_funcionario.getText().trim().length() == 11      &&
+            
+            
+            Double.valueOf(this.txt_salario_funcionario.getText().trim()) >= salarioMinimo){
            
-            try{
-                if(Double.valueOf(this.txt_salario_funcionario.getText().trim()) >= salarioMinimo){
-                    this.btn_cadastrar.setEnabled(true);
-                }else{
-                    this.btn_cadastrar.setEnabled(false);
-                }
-            }catch(NumberFormatException e){
-            this.btn_cadastrar.setEnabled(false);
+            this.btn_cadastrar.setEnabled(true);
 
-            }
+            
         }else{
             
             this.btn_cadastrar.setEnabled(false);
@@ -50,8 +57,47 @@ public class Cad_funcionario extends javax.swing.JDialog {
         
         home.AddFuncionario(funcionario);
         
+        this.txt_nome_funcionario.setText("");
+        this.txt_cpf_funcionario.setText("");
+        this.txt_salario_funcionario.setText("");
+        this.HabilitarPlaceHolderNome();
+        this.HabilitarPlaceHolderCPF();
+        this.HabilitarPlaceHolderSalario();
+        this.btn_cadastrar.setEnabled(false);
+        
         JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
+        
+    }
+    
+    private void HabilitarPlaceHolderNome(){
+       if(this.txt_nome_funcionario.getText().trim().isEmpty()){
+           
+           this.txt_nome_funcionario.setText(placeHolderNome);
+           this.txt_nome_funcionario.setForeground(Color.GRAY);
+       }
+       
+        
+    }
+    
+    private void HabilitarPlaceHolderCPF(){
+       if(this.txt_cpf_funcionario.getText().trim().isEmpty()){
+           
+           this.txt_cpf_funcionario.setText(placeHolderCPF);
+           this.txt_cpf_funcionario.setForeground(Color.GRAY);
+       }
+       
+        
+    }
+    
+    private void HabilitarPlaceHolderSalario(){
+       if(this.txt_salario_funcionario.getText().trim().isEmpty()){
+           
+           this.txt_salario_funcionario.setText(placeHolderSalario);
+           this.txt_salario_funcionario.setForeground(Color.GRAY);
+       }
+       
+       
         
     }
     
@@ -91,6 +137,14 @@ public class Cad_funcionario extends javax.swing.JDialog {
 
         lb_nome.setText("Nome");
 
+        txt_nome_funcionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_nome_funcionarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_nome_funcionarioFocusLost(evt);
+            }
+        });
         txt_nome_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_nome_funcionarioKeyReleased(evt);
@@ -99,9 +153,12 @@ public class Cad_funcionario extends javax.swing.JDialog {
 
         lb_cpf.setText("CPF");
 
-        txt_cpf_funcionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cpf_funcionarioActionPerformed(evt);
+        txt_cpf_funcionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_cpf_funcionarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_cpf_funcionarioFocusLost(evt);
             }
         });
         txt_cpf_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -112,6 +169,14 @@ public class Cad_funcionario extends javax.swing.JDialog {
 
         lb_salario.setText("Salário");
 
+        txt_salario_funcionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_salario_funcionarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_salario_funcionarioFocusLost(evt);
+            }
+        });
         txt_salario_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_salario_funcionarioKeyReleased(evt);
@@ -178,15 +243,16 @@ public class Cad_funcionario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_cpf_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpf_funcionarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cpf_funcionarioActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          
        for(Generos genero : Generos.values()){
            this.cb_generos.addItem(genero.toString());
        }  
+       
+       
+       this.HabilitarPlaceHolderNome();
+       this.HabilitarPlaceHolderCPF();
+       this.HabilitarPlaceHolderSalario();
     }//GEN-LAST:event_formWindowOpened
 
     private void txt_salario_funcionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_salario_funcionarioKeyReleased
@@ -205,6 +271,48 @@ public class Cad_funcionario extends javax.swing.JDialog {
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         this.AdicionarFuncionario(this.home);
     }//GEN-LAST:event_btn_cadastrarActionPerformed
+
+    private void txt_nome_funcionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nome_funcionarioFocusGained
+       
+        
+        if(!this.txt_nome_funcionario.getText().trim().isEmpty() &&
+            this.txt_nome_funcionario.getText().trim().equals(placeHolderNome)){
+           
+           this.txt_nome_funcionario.setText("");
+           this.txt_nome_funcionario.setForeground(Color.BLACK);
+       }
+    }//GEN-LAST:event_txt_nome_funcionarioFocusGained
+
+    private void txt_nome_funcionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nome_funcionarioFocusLost
+       this.HabilitarPlaceHolderNome();
+    }//GEN-LAST:event_txt_nome_funcionarioFocusLost
+
+    private void txt_cpf_funcionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cpf_funcionarioFocusGained
+    
+        if(!this.txt_cpf_funcionario.getText().trim().isEmpty() &&
+            this.txt_cpf_funcionario.getText().trim().equals(placeHolderCPF)){
+           
+           this.txt_cpf_funcionario.setText("");
+           this.txt_cpf_funcionario.setForeground(Color.BLACK);
+       }
+    }//GEN-LAST:event_txt_cpf_funcionarioFocusGained
+
+    private void txt_cpf_funcionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cpf_funcionarioFocusLost
+       this.HabilitarPlaceHolderCPF();
+    }//GEN-LAST:event_txt_cpf_funcionarioFocusLost
+
+    private void txt_salario_funcionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_salario_funcionarioFocusGained
+       if(!this.txt_salario_funcionario.getText().trim().isEmpty() &&
+            this.txt_salario_funcionario.getText().trim().equals(placeHolderSalario)){
+           
+           this.txt_salario_funcionario.setText("");
+           this.txt_salario_funcionario.setForeground(Color.BLACK);
+       }
+    }//GEN-LAST:event_txt_salario_funcionarioFocusGained
+
+    private void txt_salario_funcionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_salario_funcionarioFocusLost
+       this.HabilitarPlaceHolderSalario();
+    }//GEN-LAST:event_txt_salario_funcionarioFocusLost
 
     /**
      * @param args the command line arguments
