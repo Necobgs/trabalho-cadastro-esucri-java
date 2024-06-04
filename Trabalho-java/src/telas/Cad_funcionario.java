@@ -101,6 +101,17 @@ public class Cad_funcionario extends javax.swing.JDialog {
         
     }
     
+    private boolean ValidarCPF(String cpf){
+    for(Funcionarios funcionario : this.home.getListaFuncionarios()){
+        
+        if(funcionario.getCpf().equals(cpf)){
+        return false;
+                }
+    
+    }
+    
+    return true;
+    }
     
     public Cad_funcionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -269,7 +280,21 @@ public class Cad_funcionario extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_cpf_funcionarioKeyReleased
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
-        this.AdicionarFuncionario(this.home);
+        
+        if(this.ValidarCPF(this.txt_cpf_funcionario.getText().trim())){
+            
+            this.AdicionarFuncionario(this.home);
+            
+        }else{
+            
+            this.txt_cpf_funcionario.setText("");
+            this.txt_cpf_funcionario.requestFocus();
+            this.HabilitarCadastrar();
+            JOptionPane.showMessageDialog(this, "Funcionário já cadastrado com CPF!", "Erro", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+                
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     private void txt_nome_funcionarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nome_funcionarioFocusGained

@@ -16,6 +16,7 @@ public class Funcionarios {
     private Double salario;
     private Double inss;
     private Generos genero;
+    private static Double taxaINSS = 0.11;
     
     public Funcionarios(String nome,
                         String cpf,
@@ -25,7 +26,7 @@ public class Funcionarios {
         this.nome = nome;
         this.cpf = cpf;
         this.salario = salario;
-        this.inss = salario  * 0.11;
+        this.inss = salario  * taxaINSS;
         this.genero = genero;
     }
 
