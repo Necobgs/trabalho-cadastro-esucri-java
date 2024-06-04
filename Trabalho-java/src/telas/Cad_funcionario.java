@@ -4,29 +4,61 @@
  */
 package telas;
 
-import enums.generos;
+import classes.Funcionarios;
+import enums.Generos;
 import javax.swing.ComboBoxModel;
-
+import javax.swing.JOptionPane;
+import telas.Home;
 /**
  *
  * @author User
  */
 public class Cad_funcionario extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Cad_funcionario
-     */
+    public static Double salarioMinimo = (double)1500;
+    private Home home;
     
-    private static void HabilitarCadastrar(){
+    private void HabilitarCadastrar(){
         
+        if(!this.txt_nome_funcionario.getText().trim().isEmpty() &&
+            this.txt_cpf_funcionario.getText().trim().length() == 11 &&
+            !this.txt_salario_funcionario.getText().trim().isEmpty()){
+           
+            try{
+                if(Double.valueOf(this.txt_salario_funcionario.getText().trim()) >= salarioMinimo){
+                    this.btn_cadastrar.setEnabled(true);
+                }else{
+                    this.btn_cadastrar.setEnabled(false);
+                }
+            }catch(NumberFormatException e){
+            this.btn_cadastrar.setEnabled(false);
+
+            }
+        }else{
+            
+            this.btn_cadastrar.setEnabled(false);
+            
+        }
+    }
+    
+    public void AdicionarFuncionario(Home home){
         
+        Funcionarios funcionario = new Funcionarios(this.txt_nome_funcionario.getText().toUpperCase(),
+                                                    this.txt_cpf_funcionario.getText(),
+                                                    Double.valueOf(this.txt_salario_funcionario.getText()),
+                                                    Generos.valueOf(this.cb_generos.getSelectedItem().toString()));
         
+        home.AddFuncionario(funcionario);
+        
+        JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
         
     }
     
     
     public Cad_funcionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.home = (Home)parent;
         initComponents();
     }
 
@@ -42,7 +74,7 @@ public class Cad_funcionario extends javax.swing.JDialog {
         lb_nome = new javax.swing.JLabel();
         txt_nome_funcionario = new javax.swing.JTextField();
         lb_cpf = new javax.swing.JLabel();
-        txt_cpf_funcionario1 = new javax.swing.JTextField();
+        txt_cpf_funcionario = new javax.swing.JTextField();
         lb_salario = new javax.swing.JLabel();
         txt_salario_funcionario = new javax.swing.JTextField();
         lb_genero = new javax.swing.JLabel();
@@ -59,26 +91,42 @@ public class Cad_funcionario extends javax.swing.JDialog {
 
         lb_nome.setText("Nome");
 
-        txt_nome_funcionario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_nome_funcionarioFocusLost(evt);
+        txt_nome_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_nome_funcionarioKeyReleased(evt);
             }
         });
 
         lb_cpf.setText("CPF");
 
-        txt_cpf_funcionario1.addActionListener(new java.awt.event.ActionListener() {
+        txt_cpf_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cpf_funcionario1ActionPerformed(evt);
+                txt_cpf_funcionarioActionPerformed(evt);
+            }
+        });
+        txt_cpf_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_cpf_funcionarioKeyReleased(evt);
             }
         });
 
         lb_salario.setText("Salário");
 
+        txt_salario_funcionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_salario_funcionarioKeyReleased(evt);
+            }
+        });
+
         lb_genero.setText("Gênero");
 
         btn_cadastrar.setText("Cadastrar");
         btn_cadastrar.setEnabled(false);
+        btn_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +145,7 @@ public class Cad_funcionario extends javax.swing.JDialog {
                     .addComponent(lb_nome)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txt_nome_funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_cpf_funcionario1)
+                        .addComponent(txt_cpf_funcionario)
                         .addComponent(txt_salario_funcionario))
                     .addComponent(cb_generos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(78, Short.MAX_VALUE))
@@ -112,7 +160,7 @@ public class Cad_funcionario extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addComponent(lb_cpf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_cpf_funcionario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_cpf_funcionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(lb_salario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -127,22 +175,36 @@ public class Cad_funcionario extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_cpf_funcionario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpf_funcionario1ActionPerformed
+    private void txt_cpf_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpf_funcionarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cpf_funcionario1ActionPerformed
+    }//GEN-LAST:event_txt_cpf_funcionarioActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          
-       for(generos genero : generos.values()){
+       for(Generos genero : Generos.values()){
            this.cb_generos.addItem(genero.toString());
        }  
     }//GEN-LAST:event_formWindowOpened
 
-    private void txt_nome_funcionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nome_funcionarioFocusLost
-      
-    }//GEN-LAST:event_txt_nome_funcionarioFocusLost
+    private void txt_salario_funcionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_salario_funcionarioKeyReleased
+        this.HabilitarCadastrar();
+
+    }//GEN-LAST:event_txt_salario_funcionarioKeyReleased
+
+    private void txt_nome_funcionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nome_funcionarioKeyReleased
+        this.HabilitarCadastrar();
+    }//GEN-LAST:event_txt_nome_funcionarioKeyReleased
+
+    private void txt_cpf_funcionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cpf_funcionarioKeyReleased
+        this.HabilitarCadastrar();
+    }//GEN-LAST:event_txt_cpf_funcionarioKeyReleased
+
+    private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
+        this.AdicionarFuncionario(this.home);
+    }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,7 +255,7 @@ public class Cad_funcionario extends javax.swing.JDialog {
     private javax.swing.JLabel lb_genero;
     private javax.swing.JLabel lb_nome;
     private javax.swing.JLabel lb_salario;
-    private javax.swing.JTextField txt_cpf_funcionario1;
+    private javax.swing.JTextField txt_cpf_funcionario;
     private javax.swing.JTextField txt_nome_funcionario;
     private javax.swing.JTextField txt_salario_funcionario;
     // End of variables declaration//GEN-END:variables

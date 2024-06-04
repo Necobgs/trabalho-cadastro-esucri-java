@@ -4,6 +4,8 @@
  */
 package telas;
 
+import classes.Funcionarios;
+import enums.Generos;
 import enums.atributos_funcionarios;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
@@ -14,11 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Mostrar_funcionarios extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Mostrar_funcionarios
-     */
+    private Home home;
     public Mostrar_funcionarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.home = (Home)parent;
         initComponents();
     }
 
@@ -31,8 +32,22 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn_group_salario = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_funcionarios = new javax.swing.JTable();
+        txt_nome_procurar = new javax.swing.JTextField();
+        lb_nome = new javax.swing.JLabel();
+        txt_cpf_procurar = new javax.swing.JTextField();
+        lb_cpf = new javax.swing.JLabel();
+        txt_salario_procurar = new javax.swing.JTextField();
+        lb_salario = new javax.swing.JLabel();
+        lb_genero = new javax.swing.JLabel();
+        cb_genero_procurar = new javax.swing.JComboBox<>();
+        btn_procurar = new javax.swing.JButton();
+        ckbox_genero = new javax.swing.JCheckBox();
+        rbtn_maior = new javax.swing.JRadioButton();
+        rbtn_igual = new javax.swing.JRadioButton();
+        rbtn_menor = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -54,32 +69,176 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(table_funcionarios);
 
+        lb_nome.setText("Nome");
+
+        lb_cpf.setText("CPF");
+
+        lb_salario.setText("Salário");
+
+        lb_genero.setText("Gênero");
+
+        cb_genero_procurar.setEnabled(false);
+
+        btn_procurar.setText("Procurar");
+        btn_procurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_procurarActionPerformed(evt);
+            }
+        });
+
+        ckbox_genero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                ckbox_generoMouseReleased(evt);
+            }
+        });
+
+        btn_group_salario.add(rbtn_maior);
+        rbtn_maior.setText("Maior ");
+
+        btn_group_salario.add(rbtn_igual);
+        rbtn_igual.setSelected(true);
+        rbtn_igual.setText("Igual");
+
+        btn_group_salario.add(rbtn_menor);
+        rbtn_menor.setText("Menor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_procurar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lb_genero)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(ckbox_genero)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cb_genero_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lb_salario)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txt_salario_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(rbtn_maior)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(rbtn_igual)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(rbtn_menor))
+                        .addComponent(txt_cpf_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb_cpf)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_nome_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb_nome)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(lb_nome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_nome_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_cpf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_cpf_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_salario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_salario_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbtn_maior)
+                    .addComponent(rbtn_igual)
+                    .addComponent(rbtn_menor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_genero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cb_genero_procurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ckbox_genero))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(btn_procurar)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-      DefaultTableModel modelo_headers_funcionarios = new DefaultTableModel(atributos_funcionarios.values(), 0);
       
-      this.table_funcionarios.setModel(modelo_headers_funcionarios);
+      for(Generos genero : Generos.values()){
+           this.cb_genero_procurar.addItem(genero.toString());
+       }  
+
+        DefaultTableModel modelo_funcionarios = new DefaultTableModel(atributos_funcionarios.values(), 0);
+      
+      for(Funcionarios funcionario: this.home.getListaFuncionarios()){
+          
+          modelo_funcionarios.addRow(funcionario.retornarAtributos());    
+      }
+      
+      
+      
+      this.table_funcionarios.setModel(modelo_funcionarios);  
+     
+      
+      
+
       
     }//GEN-LAST:event_formWindowOpened
+
+    private void ckbox_generoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ckbox_generoMouseReleased
+        System.out.println(this.ckbox_genero.isSelected());
+        if(this.ckbox_genero.isSelected()){
+            this.cb_genero_procurar.setEnabled(true);
+        }else{
+            this.cb_genero_procurar.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckbox_generoMouseReleased
+
+    private void btn_procurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_procurarActionPerformed
+       
+       
+      LinkedList<Funcionarios> funcionarios = this.home.getListaFuncionarios();
+        
+      DefaultTableModel model_funcionarios = (DefaultTableModel) this.table_funcionarios.getModel();
+      
+      for(int ind = 0; ind <= this.table_funcionarios.getRowCount() && this.table_funcionarios.getRowCount() > 0; ind++){
+        model_funcionarios.removeRow(0);
+      }
+      
+      
+      
+      for(int ind = 0; ind < this.home.getListaFuncionarios().size(); ind++){
+          
+          if(!this.txt_nome_procurar.getText().trim().isEmpty() &&
+             !funcionarios.get(ind).getNome().contains(this.txt_nome_procurar.getText().trim().toUpperCase())){
+          continue;
+          }
+          
+          if(!this.txt_cpf_procurar.getText().trim().isEmpty() &&
+             !funcionarios.get(ind).getCpf().equals(this.txt_cpf_procurar.getText().trim())){
+          continue;
+          }
+          
+          if(this.ckbox_genero.isSelected() &&
+             !funcionarios.get(ind).getGenero().equals(Generos.valueOf(this.cb_genero_procurar.getSelectedItem().toString()))){
+          continue;
+          }
+          
+          model_funcionarios.addRow(funcionarios.get(ind).retornarAtributos());
+          
+          
+      }
+      
+      
+
+        
+    }//GEN-LAST:event_btn_procurarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,7 +283,21 @@ public class Mostrar_funcionarios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btn_group_salario;
+    private javax.swing.JButton btn_procurar;
+    private javax.swing.JComboBox<String> cb_genero_procurar;
+    private javax.swing.JCheckBox ckbox_genero;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_cpf;
+    private javax.swing.JLabel lb_genero;
+    private javax.swing.JLabel lb_nome;
+    private javax.swing.JLabel lb_salario;
+    private javax.swing.JRadioButton rbtn_igual;
+    private javax.swing.JRadioButton rbtn_maior;
+    private javax.swing.JRadioButton rbtn_menor;
     private javax.swing.JTable table_funcionarios;
+    private javax.swing.JTextField txt_cpf_procurar;
+    private javax.swing.JTextField txt_nome_procurar;
+    private javax.swing.JTextField txt_salario_procurar;
     // End of variables declaration//GEN-END:variables
 }

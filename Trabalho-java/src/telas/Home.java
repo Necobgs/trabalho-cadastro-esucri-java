@@ -14,9 +14,16 @@ import java.util.LinkedList;
 public class Home extends javax.swing.JFrame {
     private LinkedList<Funcionarios> listaFuncionarios = new LinkedList<>();
     
-    public void AdicionarFuncionario(Funcionarios funcionarios){
-        this.listaFuncionarios.add(funcionarios);
+    public void AddFuncionario(Funcionarios funcionario){
+        this.listaFuncionarios.add(funcionario);
         
+    }
+    
+    public LinkedList<Funcionarios> getListaFuncionarios() {
+        for(Funcionarios funcionario: this.listaFuncionarios){
+        }
+        
+        return this.listaFuncionarios;
     }
     
     public Home() {

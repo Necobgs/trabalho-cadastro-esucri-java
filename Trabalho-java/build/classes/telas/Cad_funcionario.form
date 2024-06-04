@@ -9,7 +9,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
@@ -43,7 +43,7 @@
                   <Component id="lb_nome" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txt_nome_funcionario" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
-                      <Component id="txt_cpf_funcionario1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txt_cpf_funcionario" alignment="0" max="32767" attributes="0"/>
                       <Component id="txt_salario_funcionario" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="cb_generos" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
@@ -62,7 +62,7 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="lb_cpf" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txt_cpf_funcionario1" min="-2" max="-2" attributes="0"/>
+              <Component id="txt_cpf_funcionario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Component id="lb_salario" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -86,7 +86,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_nome_funcionario">
       <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_nome_funcionarioFocusLost"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_nome_funcionarioKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lb_cpf">
@@ -94,9 +94,10 @@
         <Property name="text" type="java.lang.String" value="CPF"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_cpf_funcionario1">
+    <Component class="javax.swing.JTextField" name="txt_cpf_funcionario">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_cpf_funcionario1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_cpf_funcionarioActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_cpf_funcionarioKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lb_salario">
@@ -105,6 +106,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_salario_funcionario">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_salario_funcionarioKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lb_genero">
       <Properties>
@@ -121,6 +125,9 @@
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadastrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

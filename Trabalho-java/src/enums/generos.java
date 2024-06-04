@@ -5,7 +5,7 @@
 package enums;
 
 
-public enum generos {
+public enum Generos {
     MASCULINO,
     FEMININO,
     OUTRO
